@@ -24,6 +24,36 @@ namespace Vsql.Connection
             connectionString = ConnectionString;
         }
 
+        public int ExecuteNonQuery(string sql, params SqlParameter[] parameters)
+        {
+            using (var command = new SqlCommand(sql, OpenConnection()))
+            {
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                return command.ExecuteNonQuery();
+            }
+        }
+
+        public DataTable GetDataTable(string sql, params SqlParameter[] parameters)
+        {
+            using (var command = new SqlCommand(sql, OpenConnection()))
+            {
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    var dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    return dataTable;
+                }
+            }
+        }
+
         public SqlConnection OpenConnection()
         {
             try
