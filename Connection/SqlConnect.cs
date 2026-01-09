@@ -39,8 +39,18 @@ namespace Vsql.Connection
 
         public DataTable GetDataTable(string sql, params SqlParameter[] parameters)
         {
-            using (var command = new SqlCommand(sql, OpenConnection()))
+            if(sql == null)
             {
+                MessageBox.Show("Sql query cant be null");
+                return null;
+            }
+            using (var command = new SqlCommand(sql, connection))
+            {
+                if (connection == null)
+                {
+                    MessageBox.Show("Connect to your database first");
+                    return null;
+                }
                 if (parameters != null)
                 {
                     command.Parameters.AddRange(parameters);

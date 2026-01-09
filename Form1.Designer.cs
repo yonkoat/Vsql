@@ -31,6 +31,10 @@
             ConnectionStringBox = new TextBox();
             ConnectInit = new Button();
             InitDisconnect = new Button();
+            DataTableGrid = new DataGridView();
+            GetTableBtn = new Button();
+            QueryInputBox = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)DataTableGrid).BeginInit();
             SuspendLayout();
             // 
             // ConnectionStringBox
@@ -61,17 +65,46 @@
             InitDisconnect.UseVisualStyleBackColor = true;
             InitDisconnect.Click += InitDisconnect_Click;
             // 
+            // DataTableGrid
+            // 
+            DataTableGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataTableGrid.Location = new Point(39, 144);
+            DataTableGrid.Name = "DataTableGrid";
+            DataTableGrid.Size = new Size(390, 242);
+            DataTableGrid.TabIndex = 3;
+            // 
+            // GetTableBtn
+            // 
+            GetTableBtn.Location = new Point(428, 115);
+            GetTableBtn.Name = "GetTableBtn";
+            GetTableBtn.Size = new Size(75, 23);
+            GetTableBtn.TabIndex = 4;
+            GetTableBtn.Text = "get table";
+            GetTableBtn.UseVisualStyleBackColor = true;
+            GetTableBtn.Click += GetTableBtn_Click;
+            // 
+            // QueryInputBox
+            // 
+            QueryInputBox.Location = new Point(39, 115);
+            QueryInputBox.Name = "QueryInputBox";
+            QueryInputBox.Size = new Size(383, 23);
+            QueryInputBox.TabIndex = 5;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1034, 641);
+            Controls.Add(QueryInputBox);
+            Controls.Add(GetTableBtn);
+            Controls.Add(DataTableGrid);
             Controls.Add(InitDisconnect);
             Controls.Add(ConnectInit);
             Controls.Add(ConnectionStringBox);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)DataTableGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -81,5 +114,8 @@
         private TextBox ConnectionStringBox;
         private Button ConnectInit;
         private Button InitDisconnect;
+        private DataGridView DataTableGrid;
+        private Button GetTableBtn;
+        private TextBox QueryInputBox;
     }
 }
