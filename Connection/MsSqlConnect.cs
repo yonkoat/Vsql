@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Vsql.Connection
 {
-    public class SqlConnectionManager : IDisposable
+    public class MsSqlConnectionManager : IDisposable
     {
         private SqlConnection connection;
         private readonly string connectionString;
         private bool disposed = false;
-        public SqlConnectionManager(string ConnectionString)
+        public MsSqlConnectionManager(string ConnectionString)
         {
             if (string.IsNullOrWhiteSpace(ConnectionString))
             {

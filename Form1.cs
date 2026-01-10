@@ -9,7 +9,7 @@ namespace Vsql
 {
     public partial class Form1 : Form
     {
-        SqlConnectionManager connectionManager = null;
+        MsSqlConnectionManager connectionManager = null;
         public Form1()
         {
             InitializeComponent();
@@ -50,13 +50,13 @@ namespace Vsql
             connectionManager?.Dispose();
 
 
-            connectionManager = new SqlConnectionManager(ConnectionStringBox.Text);
+            connectionManager = new MsSqlConnectionManager(ConnectionStringBox.Text);
             connectionManager.OpenConnection();
         }
 
         private void InitDisconnect_Click(object sender, EventArgs e)
         {
-            if(connectionManager == null)
+            if (connectionManager == null)
             {
                 MessageBox.Show("No connection to begin wtih");
                 return;
@@ -76,25 +76,52 @@ namespace Vsql
                     MessageBox.Show("Connect to your database first. Then get tables");
                     return;
                 }
-                
-                 string sql = QueryInputBox.Text;
-                 //add parameter handling
+
+                string sql = QueryInputBox.Text;
+                //add parameter handling
 
 
-                 DataTable dataTable = connectionManager.GetDataTable(sql);
+                DataTable dataTable = connectionManager.GetDataTable(sql);
 
-                 DataTableGrid.DataSource = dataTable;
+                DataTableGrid.DataSource = dataTable;
 
-                 DataTableGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                 DataTableGrid.AutoResizeColumns();
-                
+                DataTableGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                DataTableGrid.AutoResizeColumns();
+
 
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ConnectToPg_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var connector = new PgSqlConnection
+                            (
+                             host: PgHost.Text,
+                             database: PgDb.Text,
+                             username: PgUser.Text,
+                             password: PgPassword.Text,
+                             port: Int32.Parse(PgPort.Text)
+                            );
+                connector.TestConnection();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Couldnt establish connection due to error: {ex.Message}" + ex);
+            }
+
+
         }
     }
 }
